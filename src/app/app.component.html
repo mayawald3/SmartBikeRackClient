@@ -1,8 +1,13 @@
-<p>Your bike is {{this.lockStatus$ | async}}</p>
-<button (click)="onLockClicked()">{{(this.lockStatus$ | async) === 'Locked' ? 'Unlock' : 'Lock' }}</button>
-<app-welcome></app-welcome>
-<app-register></app-register>
-<app-sign-in></app-sign-in>
-<app-home></app-home>
-<app-process></app-process>
+<main class="app">
+<header class="app">BikeNest</header>
+<!--<app-welcome></app-welcome>-->
+<!--<p>Your bike is {{this.lockStatus$ | async}}</p>-->
+<!--<button (click)="onLockClicked()">{{(this.lockStatus$ | async) === 'Locked' ? 'Unlock' : 'Lock' }}</button>-->
 
+<app-register></app-register>
+<!--<app-sign-in></app-sign-in>-->
+<!--<app-home></app-home>-->
+<!--<app-process></app-process>-->
+
+</main>
+<footer><a>About Our Smart Bike Rack</a></footer>

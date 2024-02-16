@@ -1,1 +1,74 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: Sanchez;
+  src: url(assets/sanchez/Sanchezregular.otf);
+}
+
+main.app {
+  background-image: url("assets/wheel.png");
+  background-size: 600px;
+  background-repeat: no-repeat;
+  background-position: -250px -100px;
+  padding-bottom: 100px;
+}
+
+header.app {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+  font-size: 50pt;
+  font-family: Sanchez, serif;
+  color: #6642DB;
+  text-shadow: 2px 0 2px #FF914D;
+}
+
+main.component {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  font-family: Sanchez, serif;
+}
+
+div.main-div {
+  flex-basis: 100%;
+  margin-bottom: 0.5rem;
+}
+
+div.sub-div {
+  padding: 10px 0 10px 0;
+  text-align: center;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 25px;
+  background-color: #8C52FF;
+  color: white;
+  letter-spacing: 3px;
+  border: none;
+}
+
+button:hover {
+  background-color: #c1acec;
+}
+
+@media (min-width: 600px) {
+  main.app {
+    background-size: 1000px;
+    background-position: -400px -300px;
+    padding-bottom: 500px;
+  }
+  header.app {
+    font-size: 75pt;
+  }
+  main.component {
+    flex-wrap: nowrap;
+  }
+  div.main-div {
+    flex-basis: 50%;
+  }
+  .phone-only {
+    display: none;
+  }
+}
