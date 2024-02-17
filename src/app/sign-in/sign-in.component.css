@@ -1,0 +1,5 @@
+div.form {
+  display: grid;
+  text-align: left;
+  justify-content: center;
+}

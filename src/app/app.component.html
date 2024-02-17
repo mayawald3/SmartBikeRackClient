@@ -1,13 +1,18 @@
 <main class="app">
-<header class="app">BikeNest</header>
-<!--<app-welcome></app-welcome>-->
-<!--<p>Your bike is {{this.lockStatus$ | async}}</p>-->
-<!--<button (click)="onLockClicked()">{{(this.lockStatus$ | async) === 'Locked' ? 'Unlock' : 'Lock' }}</button>-->
+  <header class="app">BikeNest</header>
+  <app-welcome *ngIf="(state$ | async) === WELCOME"
+              (goToSignIn)="switchPages(SIGN_IN)"
+              (goToRegister)="switchPages(REGISTER)"></app-welcome>
 
-<app-register></app-register>
-<!--<app-sign-in></app-sign-in>-->
-<!--<app-home></app-home>-->
-<!--<app-process></app-process>-->
+  <app-register *ngIf="(state$ | async) === REGISTER"
+                (register)="switchPages(HOME)"></app-register>
 
+  <app-sign-in *ngIf="(state$ | async) === SIGN_IN"
+              (signIn)="switchPages(HOME)"></app-sign-in>
+
+  <app-home *ngIf="(state$ | async) === HOME"
+            (lockChanged)="switchPages(PROCESS)"></app-home>
+
+  <app-process *ngIf="(state$ | async) === PROCESS"></app-process>
 </main>
 <footer><a>About Our Smart Bike Rack</a></footer>

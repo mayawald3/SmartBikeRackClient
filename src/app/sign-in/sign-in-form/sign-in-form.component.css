@@ -1,0 +1,18 @@
+div {
+  padding: 10px;
+}
+
+label {
+  font-weight: normal;
+  align-content: start;
+}
+
+input, select {
+  border-radius: 10px;
+  border: 2px black solid;
+  padding: 8px;
+  font-size: 12pt;
+  align-content: end;
+  min-width: 200px;
+  margin-left: 50px;
+}
