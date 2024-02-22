@@ -1,16 +1,13 @@
 import {Component, EventEmitter, Output} from '@angular/core';
-import {FormControl, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {NgForOf} from "@angular/common";
+import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-sign-in-form',
+  templateUrl: './sign-in-form.component.html',
   standalone: true,
   imports: [
-    FormsModule,
-    NgForOf,
     ReactiveFormsModule
   ],
-  templateUrl: './sign-in-form.component.html',
   styleUrl: './sign-in-form.component.css'
 })
 export class SignInFormComponent {

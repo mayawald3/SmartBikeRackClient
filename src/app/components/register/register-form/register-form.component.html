@@ -1,36 +1,39 @@
 <form [formGroup]="registerForm">
   <div>
-    <label for="first-name">First Name: </label>
+    <label for="first-name">First Name</label>
     <input id="first-name" type="text" formControlName="firstName">
   </div>
 
   <div>
-    <label for="last-name">Last Name: </label>
+    <label for="last-name">Last Name</label>
     <input id="last-name" type="text" formControlName="lastName">
   </div>
 
   <div>
-    <label for="apartment">Apartment: </label>
+    <label for="apartment">Apartment</label>
     <select id="apartment" formControlName="apartment">
-      <option *ngFor="let apartment of apartments$" [ngValue]="apartment">
+      <option *ngFor="let apartment of apartments$">
         {{ apartment }}
       </option>
     </select>
   </div>
 
   <div>
-    <label for="username">Username: </label>
+    <label for="username">Username</label>
     <input id="username" type="text" formControlName="username">
   </div>
 
   <div>
-    <label for="password">Password: </label>
+    <label for="password">Password</label>
     <input id="password" type="password" formControlName="password">
   </div>
 
-  <div>
-    <label for="confirmPassword">Re-enter Password: </label>
-    <input id="confirmPassword" type="password" formControlName="confirmPassword">
+  <div class="flex">
+    <div class="reenter"><label for="confirmPassword">Re-Enter Password</label>
+    </div>
+    <div class="reenter">
+      <input id="confirmPassword" type="password" formControlName="confirmPassword">
+    </div>
   </div>
 
   <div class="sub-div">

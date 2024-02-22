@@ -1,0 +1,16 @@
+div.form {
+  display: grid;
+  text-align: left;
+  justify-content: center;
+}
+
+.center {
+  justify-content: space-between;
+}
+
+.sub-header {
+  font-size: 16pt;
+  letter-spacing: 2px;
+}
+
+

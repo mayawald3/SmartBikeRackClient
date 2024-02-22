@@ -3,6 +3,15 @@
   src: url(assets/sanchez/Sanchezregular.otf);
 }
 
+@font-face {
+  font-family: Libre Franklin;
+  src: url(assets/Libre_Franklin/LibreFranklin-VariableFont_wght.ttf)
+}
+
+* {
+  font-family: Libre Franklin, serif;
+}
+
 main.app {
   background-image: url("assets/wheel.png");
   background-size: 600px;
@@ -25,7 +34,6 @@ main.component {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  font-family: Sanchez, serif;
 }
 
 div.main-div {
@@ -49,14 +57,26 @@ button {
   border: none;
 }
 
+button.back-button {
+  background-color: black;
+}
+
 button:hover {
   background-color: #c1acec;
+}
+
+button.back-button:hover {
+  background-color: #b3b3b4;
+}
+
+.webpage-only {
+  display: none;
 }
 
 @media (min-width: 600px) {
   main.app {
     background-size: 1000px;
-    background-position: -400px -300px;
+    background-position: 650px -250px;
     padding-bottom: 500px;
   }
   header.app {
@@ -70,5 +90,8 @@ button:hover {
   }
   .phone-only {
     display: none;
+  }
+  .webpage-only {
+    display: inherit;
   }
 }

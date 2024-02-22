@@ -1,18 +1,29 @@
 <main class="app">
-  <header class="app">BikeNest</header>
-  <app-welcome *ngIf="(state$ | async) === WELCOME"
-              (goToSignIn)="switchPages(SIGN_IN)"
-              (goToRegister)="switchPages(REGISTER)"></app-welcome>
+  <header class="app">BikeNest
+    <button *ngIf="(state$ | async) === HOME || (state$ | async) === PROCESS"
+            (click)="onSignOut()">SIGN OUT
+    </button>
+  </header>
+  <router-outlet></router-outlet>
+<!--  <app-welcome *ngIf="(state$ | async) === WELCOME"-->
+<!--               (goToSignIn)="switchPages(SIGN_IN)"-->
+<!--               (goToRegister)="switchPages(REGISTER)">-->
+<!--  </app-welcome>-->
 
-  <app-register *ngIf="(state$ | async) === REGISTER"
-                (register)="switchPages(HOME)"></app-register>
+<!--  <app-register *ngIf="(state$ | async) === REGISTER"-->
+<!--                (register)="switchPages(HOME)"-->
+<!--                (goBack)="switchPages(prevState$.value)">-->
+<!--  </app-register>-->
 
-  <app-sign-in *ngIf="(state$ | async) === SIGN_IN"
-              (signIn)="switchPages(HOME)"></app-sign-in>
+<!--  <app-sign-in *ngIf="(state$ | async) === SIGN_IN"-->
+<!--               (signIn)="switchPages(HOME)"-->
+<!--               (goBack)="switchPages(prevState$.value)">-->
+<!--  </app-sign-in>-->
 
-  <app-home *ngIf="(state$ | async) === HOME"
-            (lockChanged)="switchPages(PROCESS)"></app-home>
+<!--  <app-home *ngIf="(state$ | async) === HOME"-->
+<!--            (lockChanged)="switchPages(PROCESS)">-->
+<!--  </app-home>-->
 
-  <app-process *ngIf="(state$ | async) === PROCESS"></app-process>
+<!--  <app-process *ngIf="(state$ | async) === PROCESS">-->
+<!--  </app-process>-->
 </main>
-<footer><a>About Our Smart Bike Rack</a></footer>

@@ -1,0 +1,2 @@
+<p>Your bike is {{this.lockStatus$ | async}}</p>
+<button (click)="onLockClicked()">{{(this.lockStatus$ | async) === LOCKED ? 'UNLOCK' : 'LOCK' }}</button>

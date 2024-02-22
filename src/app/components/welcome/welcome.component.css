@@ -3,17 +3,20 @@ div.sub-div.welcome-description1 {
 }
 
 div.sub-div.welcome-description2 {
-  padding-left: 10px;
-  padding-right: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
   font-size: 12pt;
-  font-weight: lighter;
-  line-height: 14pt;
-  font-family: serif;
+  font-weight: normal;
+  line-height: 16pt;
+  background-color: white;
 }
 
 div.sub-div.welcome-text {
   margin: auto;
   font-size: 30pt;
+  letter-spacing: 2px;
+  font-weight: normal;
+  color: #8C52FF;
 }
 
 @media (min-width: 600px) {
@@ -21,11 +24,18 @@ div.sub-div.welcome-text {
     display: block;
     margin: auto;
     font-size: 16pt;
-    font-family: serif;
     font-weight: normal;
     padding-right: 20px;
     padding-left: 20px;
     line-height: 20pt;
+  }
+
+  div.sub-div.welcome-text {
+    color: white;
+    background-color: #8C52FF;
+    border-radius: 100px;
+    margin-right: 100px;
+    margin-left: 100px;
   }
 
   div.sub-div.welcome-description2 {
