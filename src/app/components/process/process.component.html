@@ -1,1 +1,21 @@
-<p>process works!</p>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<main class="component">
+  <div class="main-div">
+    <div class="sub-div id">#0092</div>
+    <div class="sub-div">ENTER PASSWORD TO</div>
+    <div class="sub-div">
+      <span class="purple-text">{{(this.lockStatus$ | async) === UNLOCKED ? 'LOCK' : 'UNLOCK'}}</span>
+    </div>
+    <div class="sub-div">YOUR BIKE</div>
+  </div>
+  <div class="main-div" style="padding-top: 75px;">
+    <div class="sub-div">
+      <label>Password</label>
+      <input type="password">
+    </div>
+    <div class="sub-div">
+      <button (click)="processInitiated()">{{(this.lockStatus$ | async) === UNLOCKED ? 'LOCK' : 'UNLOCK'}}</button>
+    </div>
+
+  </div>
+</main>

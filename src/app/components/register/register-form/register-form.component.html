@@ -12,6 +12,7 @@
   <div>
     <label for="apartment">Apartment</label>
     <select id="apartment" formControlName="apartment">
+      <option value="" disabled selected>Select an apartment</option>
       <option *ngFor="let apartment of apartments$">
         {{ apartment }}
       </option>

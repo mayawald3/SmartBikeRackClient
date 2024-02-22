@@ -13,10 +13,10 @@
 }
 
 main.app {
-  background-image: url("assets/wheel.png");
-  background-size: 600px;
-  background-repeat: no-repeat;
-  background-position: -250px -100px;
+  /*background-image: url("assets/wheel.png");*/
+  /*background-size: 600px;*/
+  /*background-repeat: no-repeat;*/
+  /*background-position: -250px -100px;*/
   padding-bottom: 100px;
 }
 
@@ -24,10 +24,10 @@ header.app {
   padding-top: 20px;
   padding-bottom: 20px;
   text-align: center;
-  font-size: 50pt;
+  font-size: 55pt;
   font-family: Sanchez, serif;
   color: #6642DB;
-  text-shadow: 2px 0 2px #FF914D;
+  text-shadow: 2px 2px 0 rgba(250, 148, 87, 0.6), 4px 4px 0 rgba(245, 192, 160, 0.8);
 }
 
 main.component {
@@ -73,11 +73,16 @@ button.back-button:hover {
   display: none;
 }
 
+.purple-text {
+  font-size: 25pt;
+  color: #6642DB;
+}
+
 @media (min-width: 600px) {
   main.app {
-    background-size: 1000px;
-    background-position: 650px -250px;
-    padding-bottom: 500px;
+    /*background-size: 1000px;*/
+    /*background-position: 650px -250px;*/
+    /*padding-bottom: 500px;*/
   }
   header.app {
     font-size: 75pt;

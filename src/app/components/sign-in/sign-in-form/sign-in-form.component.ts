@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {Component, EventEmitter, Output} from '@angular/core'
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms'
 
 @Component({
   selector: 'app-sign-in-form',

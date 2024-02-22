@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {Router} from "@angular/router";
-import {State} from "../../app.component";
+import {Component, EventEmitter, Output} from '@angular/core'
+import {Router} from '@angular/router'
+import {State} from '../../app.component'
 
 @Component({
   selector: 'app-welcome',

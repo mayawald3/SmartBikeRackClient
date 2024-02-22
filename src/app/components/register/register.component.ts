@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {RegisterFormComponent} from "./register-form/register-form.component";
-import {Router} from "@angular/router";
-import {State} from "../../app.component";
+import {Component} from '@angular/core'
+import {RegisterFormComponent} from './register-form/register-form.component'
+import {Router} from '@angular/router'
+import {State} from "../../app.component"
 
 @Component({
   selector: 'app-register',

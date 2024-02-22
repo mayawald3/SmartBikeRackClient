@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
-import {AsyncPipe, NgForOf} from "@angular/common";
+import {Component, EventEmitter, Output} from '@angular/core'
+import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms'
+import {AsyncPipe, NgForOf} from "@angular/common"
 
 @Component({
   selector: 'app-register-form',

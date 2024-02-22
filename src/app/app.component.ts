@@ -1,8 +1,8 @@
-import {Component} from '@angular/core';
-import {ActivatedRoute, NavigationEnd, Router, RouterOutlet, RouterState} from '@angular/router';
-import {BehaviorSubject} from "rxjs";
-import {AsyncPipe, NgIf} from "@angular/common";
-import {Title} from "@angular/platform-browser";
+import {Component} from '@angular/core'
+import {ActivatedRoute, NavigationEnd, Router, RouterOutlet, RouterState} from '@angular/router'
+import {BehaviorSubject} from 'rxjs'
+import {AsyncPipe, NgIf} from '@angular/common'
+import {Title} from '@angular/platform-browser'
 
 @Component({
   selector: 'app-root',
@@ -12,10 +12,7 @@ import {Title} from "@angular/platform-browser";
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  WELCOME = State.WELCOME
-  REGISTER = State.REGISTER
   HOME = State.HOME
-  SIGN_IN = State.SIGN_IN
   PROCESS = State. PROCESS
 
   title = 'SmartBikeRackClient'
@@ -40,9 +37,7 @@ export class AppComponent {
       if (event instanceof NavigationEnd) {
         const title = this.getTitle(this.router.routerState, this.router.routerState.root).join('-');
         this.titleService.setTitle(title);
-        let currentPage = event.url
         this.state$.next(event.url.replace('/','') as State)
-        console.log(currentPage)
       }
     });
   }
