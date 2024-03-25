@@ -8,7 +8,8 @@
   <div class="main-div">
     <div class="sub-div form">
       <app-sign-in-form
-        (signIn)="signInClicked()">
+        (signIn)="signInClicked($event)"
+        (register)="goToRegister($event)">
       </app-sign-in-form>
     </div>
   </div>

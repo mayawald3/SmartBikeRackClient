@@ -1,20 +1,20 @@
-<form [formGroup]="registerForm">
+<form [formGroup]="registerForm" (ngSubmit)="registerClicked()">
   <div>
     <label for="first-name">First Name</label>
-    <input id="first-name" type="text" formControlName="firstName">
+    <input id="first-name" type="text" formControlName="first_name">
   </div>
 
   <div>
     <label for="last-name">Last Name</label>
-    <input id="last-name" type="text" formControlName="lastName">
+    <input id="last-name" type="text" formControlName="last_name">
   </div>
 
   <div>
     <label for="apartment">Apartment</label>
-    <select id="apartment" formControlName="apartment">
-      <option value="" disabled selected>Select an apartment</option>
-      <option *ngFor="let apartment of apartments$">
-        {{ apartment }}
+    <select id="apartment" formControlName="apartment_id">
+      <option [value]=0 disabled selected>Select an apartment</option>
+      <option *ngFor="let apartment of (apartments$ | async)" [value]=apartment.id>
+        {{ apartment.apartmentName }}
       </option>
     </select>
   </div>
@@ -37,7 +37,10 @@
     </div>
   </div>
 
+  <div class="error-message" *ngIf="userExistsError$ | async">User Already Exists - Use a different username or <a
+    href="./signIn">Sign In</a></div>
+
   <div class="sub-div">
-    <button (click)="registerClicked()">REGISTER YOUR BIKE</button>
+    <button type="submit" [disabled]="!registerForm.valid">REGISTER YOUR BIKE</button>
   </div>
 </form>

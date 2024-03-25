@@ -1,7 +1,7 @@
 import {Component} from '@angular/core'
 import {RegisterFormComponent} from './register-form/register-form.component'
 import {Router} from '@angular/router'
-import {State} from "../../app.component"
+import {State} from '../../app.component'
 
 @Component({
   selector: 'app-register',
@@ -16,7 +16,8 @@ export class RegisterComponent {
 
   constructor(
     private router: Router
-  ) {}
+  ) {
+  }
 
   switchRoute(screen: State) {
     this.router.navigate([screen.valueOf()]).then()
@@ -24,10 +25,6 @@ export class RegisterComponent {
 
   registerClicked() {
     this.switchRoute(State.HOME)
-  }
-
-  backClicked() {
-    this.switchRoute(State.WELCOME)
   }
 
 }

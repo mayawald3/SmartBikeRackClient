@@ -1,4 +1,4 @@
-<form [formGroup]="signInForm">
+<form [formGroup]="signInForm" (ngSubmit)="signInClicked()">
   <div>
     <label for="username">Username</label>
     <input id="username" type="text" formControlName="username">
@@ -8,8 +8,10 @@
     <label for="password">Password</label>
     <input id="password" type="password" formControlName="password">
   </div>
-
+  <div class="error-message" *ngIf="passwordIncorrect$ | async">Password is incorrect</div>
+  <div class="error-message" *ngIf="usernameIncorrect$ | async">Username not found <a href="./register">(Register Your
+    Bike Here)</a></div>
   <div class="sub-div">
-    <button (click)="signInClicked()">SIGN IN</button>
+    <button type="submit" [disabled]="!signInForm.valid">SIGN IN</button>
   </div>
 </form>

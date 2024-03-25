@@ -1,5 +1,6 @@
 div.sub-div.welcome-description1 {
   display: none;
+  text-transform: none;
 }
 
 div.sub-div.welcome-description2 {
@@ -9,6 +10,7 @@ div.sub-div.welcome-description2 {
   font-weight: normal;
   line-height: 16pt;
   background-color: white;
+  text-transform: none;
 }
 
 div.sub-div.welcome-text {

@@ -13,10 +13,10 @@
 }
 
 main.app {
-  /*background-image: url("assets/wheel.png");*/
-  /*background-size: 600px;*/
-  /*background-repeat: no-repeat;*/
-  /*background-position: -250px -100px;*/
+  background-image: url("assets/images/wheel.png");
+  background-size: 600px;
+  background-repeat: no-repeat;
+  background-position: -250px -100px;
   padding-bottom: 100px;
 }
 
@@ -78,24 +78,35 @@ button.back-button:hover {
   color: #6642DB;
 }
 
+.error-message {
+  font-size: 12pt;
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
 @media (min-width: 600px) {
   main.app {
-    /*background-size: 1000px;*/
-    /*background-position: 650px -250px;*/
-    /*padding-bottom: 500px;*/
+    background-size: 1000px;
+    background-position: 650px -250px;
+    padding-bottom: 500px;
   }
+
   header.app {
     font-size: 75pt;
   }
+
   main.component {
     flex-wrap: nowrap;
   }
+
   div.main-div {
     flex-basis: 50%;
   }
+
   .phone-only {
     display: none;
   }
+
   .webpage-only {
     display: inherit;
   }

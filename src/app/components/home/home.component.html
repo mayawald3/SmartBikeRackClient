@@ -1,8 +1,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <main class="component">
   <div class="main-div">
-    <div class="sub-div id">#0092</div>
-    <div class="sub-div hello">HELLO MAYA</div>
+    <div class="sub-div id">#{{ rackId$ | async }}</div>
+    <div class="sub-div hello">HELLO {{loggedInUser!.first_name}}</div>
     <div class="sub-div">
       YOUR BIKE IS
     </div>

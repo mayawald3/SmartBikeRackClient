@@ -3,6 +3,9 @@ import {ActivatedRoute, NavigationEnd, Router, RouterOutlet, RouterState} from '
 import {BehaviorSubject} from 'rxjs'
 import {AsyncPipe, NgIf} from '@angular/common'
 import {Title} from '@angular/platform-browser'
+import {UserService} from './api/user/user.service'
+import {UserStore} from './api/user/user.store'
+import {ApartmentService} from './api/apartment/apartment.service'
 
 @Component({
   selector: 'app-root',
@@ -13,15 +16,19 @@ import {Title} from '@angular/platform-browser'
 })
 export class AppComponent {
   HOME = State.HOME
-  PROCESS = State. PROCESS
-
+  PROCESS = State.PROCESS
   title = 'SmartBikeRackClient'
   state$ = new BehaviorSubject(State.WELCOME)
 
-  constructor (
+  constructor(
     private router: Router,
-    private titleService: Title) {
+    private titleService: Title,
+    private userService: UserService,
+    private userStore: UserStore,
+    private apartmentService: ApartmentService) {
     this.handleRouteEvents()
+    this.userService.getAllUsers().subscribe()
+    this.apartmentService.getAllApartments().subscribe()
   }
 
   handleRouting(screen: State) {
@@ -29,6 +36,7 @@ export class AppComponent {
   }
 
   onSignOut() {
+    this.userStore.setLoggedInUser(null)
     this.handleRouting(State.WELCOME)
   }
 
@@ -37,7 +45,7 @@ export class AppComponent {
       if (event instanceof NavigationEnd) {
         const title = this.getTitle(this.router.routerState, this.router.routerState.root).join('-');
         this.titleService.setTitle(title);
-        this.state$.next(event.url.replace('/','') as State)
+        this.state$.next(event.url.replace('/', '') as State)
       }
     });
   }

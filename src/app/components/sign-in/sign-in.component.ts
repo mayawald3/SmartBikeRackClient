@@ -3,6 +3,7 @@ import {RegisterFormComponent} from '../register/register-form/register-form.com
 import {SignInFormComponent} from './sign-in-form/sign-in-form.component'
 import {Router} from '@angular/router'
 import {State} from '../../app.component'
+import {User} from '../../api/user/user'
 
 @Component({
   selector: 'app-sign-in',
@@ -24,11 +25,11 @@ export class SignInComponent {
     this.router.navigate([screen.valueOf()]).then()
   }
 
-  signInClicked() {
+  signInClicked(user: User) {
     this.switchRoute(State.HOME)
   }
 
-  backClicked() {
-    this.switchRoute(State.WELCOME)
+  goToRegister(username: string) {
+    this.switchRoute(State.REGISTER)
   }
 }
