@@ -4,6 +4,7 @@ import {AsyncPipe, NgIf} from '@angular/common'
 import {User} from '../../../api/user/user'
 import {BehaviorSubject, map} from 'rxjs'
 import {UserQuery, UserStore} from '../../../api/user/user.store'
+import {LoginUserStore} from '../../../api/login-user/login-user.store'
 
 @Component({
   selector: 'app-sign-in-form',
@@ -30,7 +31,8 @@ export class SignInFormComponent {
   usernameIncorrect$ = new BehaviorSubject(false)
 
   constructor(private userQuery: UserQuery,
-              private userStore: UserStore) {
+              private userStore: UserStore,
+              private loginUserStore: LoginUserStore) {
   }
 
   signInClicked() {
@@ -40,7 +42,7 @@ export class SignInFormComponent {
       let loginUser = users.filter((user) => user.username === this.signInForm.value.username)[0]
       if (loginUser) {
         if (loginUser.password === this.signInForm.value.password) {
-          this.userStore.setLoggedInUser(loginUser)
+          this.loginUserStore.set([loginUser])
           this.signIn.emit(loginUser)
         } else {
           this.passwordIncorrect$.next(true)

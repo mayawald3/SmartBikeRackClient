@@ -8,19 +8,9 @@ export interface UserState extends EntityState<User> {
 @Injectable({providedIn: 'root'})
 @StoreConfig({name: 'user', idKey: 'id'})
 export class UserStore extends EntityStore<UserState> {
-  loggedInUser: User | null = null
   constructor() {
     super()
   }
-
-  setLoggedInUser(user: User | null) {
-    this.loggedInUser = user
-  }
-
-  getLoggedInUser(): User | null {
-    return this.loggedInUser
-  }
-
 }
 
 @Injectable({providedIn: 'root'})

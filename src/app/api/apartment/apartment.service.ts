@@ -18,7 +18,7 @@ export class ApartmentService {
     return this.http.get<Apartment[]>(`${this.baseUrl}`,
       {withCredentials: false, observe: 'response'})
       .pipe(
-        map((response: HttpResponse<Apartment[]>) => response.body!),
+        map((response: HttpResponse<Apartment[]>) => response.body),
         tap((apartments) => {
           this.apartmentStore.set(apartments)
         })

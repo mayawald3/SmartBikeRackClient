@@ -1,24 +1,17 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <main class="component">
   <div class="main-div">
-    <div class="sub-div id">#{{ rackId$ | async }}</div>
-    <div class="sub-div">ENTER PASSWORD TO</div>
+    <div class="sub-div id">USER {{ (loggedInUser$ | async)?.id }} AT {{apartmentName$ | async}}</div>
+    <div class="sub-div">ENTER RACK NUMBER AND PASSWORD TO</div>
     <div class="sub-div">
-      <span class="purple-text">{{(this.lockStatus$ | async) === UNLOCKED ? 'LOCK' : 'UNLOCK'}}</span>
+      <span class="purple-text">{{((process$ | async ) | async)?.is_completed ? 'LOCK' : 'UNLOCK'}}</span>
     </div>
     <div class="sub-div">YOUR BIKE</div>
   </div>
   <div class="main-div" >
-    <div class="sub-div">
-      <input type="password" [(ngModel)]="passwordInput">
-    </div>
-    <div class="sub-div">
-      <div class="error-message" *ngIf="passwordIncorrect$ | async">Password is incorrect</div>
-    </div>
-    <div class="sub-div">
-      <button [disabled]="!passwordInput"
-              (click)="processInitiated()">
-        {{(this.lockStatus$ | async) === UNLOCKED ? 'LOCK' : 'UNLOCK'}}</button>
-    </div>
+    <app-process-form
+    [loggedInUser] = "loggedInUser$ | async"
+    [mostRecentProcess] = "(process$ | async) | async">
+    </app-process-form>
   </div>
 </main>

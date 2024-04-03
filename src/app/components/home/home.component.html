@@ -1,24 +1,27 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <main class="component">
   <div class="main-div">
-    <div class="sub-div id">#{{ rackId$ | async }}</div>
-    <div class="sub-div hello">HELLO {{loggedInUser!.first_name}}</div>
+    <div class="sub-div id">USER {{ (loggedInUser$ | async)?.id }} AT {{apartmentName$ | async}}</div>
+    <div class="sub-div hello">HELLO {{(loggedInUser$ | async)?.first_name}}</div>
     <div class="sub-div">
       YOUR BIKE IS
     </div>
     <div class="sub-div ">
-      <span class="purple-text">{{ this.lockStatus$ | async }}
+      <span class="purple-text">{{ ((process$ | async) | async)?.is_completed ? 'UNLOCKED' : 'LOCKED' }}
       </span>
+    </div>
+    <div *ngIf="((process$ | async)| async)?.is_completed" class="sub-div ">
+      RACKS OPEN: {{ numberRacksOpen$ | async }}
     </div>
   </div>
   <div class="main-div">
     <div  class="sub-div">
-      <div *ngIf="(this.lockStatus$ | async) === UNLOCKED">
+      <div *ngIf="((process$ | async) | async)?.is_completed">
         <button (click)="onLockClicked()">
           <img ngSrc="./assets/images/unlock.png" alt="unlockImage" height="230.4" width="172.8" priority>
         </button>
         </div>
-        <div *ngIf="(this.lockStatus$ | async) === LOCKED" class="sub-div">
+        <div *ngIf="!((process$ | async) | async)?.is_completed" class="sub-div">
           <div>
             <button (click)="onLockClicked()">
               <img ngSrc="./assets/images/lock.png" alt="lockImage" height="230.4" width="172.8" priority>

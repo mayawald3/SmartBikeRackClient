@@ -4,8 +4,8 @@ import {BehaviorSubject} from 'rxjs'
 import {AsyncPipe, NgIf} from '@angular/common'
 import {Title} from '@angular/platform-browser'
 import {UserService} from './api/user/user.service'
-import {UserStore} from './api/user/user.store'
 import {ApartmentService} from './api/apartment/apartment.service'
+import { LoginUserStore } from './api/login-user/login-user.store'
 
 @Component({
   selector: 'app-root',
@@ -24,11 +24,12 @@ export class AppComponent {
     private router: Router,
     private titleService: Title,
     private userService: UserService,
-    private userStore: UserStore,
+    private loginUserStore: LoginUserStore,
     private apartmentService: ApartmentService) {
     this.handleRouteEvents()
     this.userService.getAllUsers().subscribe()
     this.apartmentService.getAllApartments().subscribe()
+
   }
 
   handleRouting(screen: State) {
@@ -36,7 +37,7 @@ export class AppComponent {
   }
 
   onSignOut() {
-    this.userStore.setLoggedInUser(null)
+    this.loginUserStore.set(null)
     this.handleRouting(State.WELCOME)
   }
 

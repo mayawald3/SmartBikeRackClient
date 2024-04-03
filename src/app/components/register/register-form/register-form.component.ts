@@ -1,7 +1,6 @@
 import {Component, EventEmitter, Output} from '@angular/core'
 import {AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms'
 import {AsyncPipe, NgForOf, NgIf} from '@angular/common'
-import {ApartmentService} from '../../../api/apartment/apartment.service'
 import {UserService} from '../../../api/user/user.service'
 import {User} from '../../../api/user/user'
 import {UserQuery, UserStore} from '../../../api/user/user.store'
@@ -52,7 +51,6 @@ export class RegisterFormComponent {
   constructor(
     private apartmentQuery: ApartmentQuery,
     private userService: UserService,
-    private userStore: UserStore,
     private userQuery: UserQuery
   ) {
   }
@@ -61,16 +59,15 @@ export class RegisterFormComponent {
     this.userExistsError$.next(false)
     let newUser: User = {
       id: 0,
-      first_name: this.registerForm.value.first_name!,
-      last_name: this.registerForm.value.last_name!,
-      username: this.registerForm.value.username!,
-      password: this.registerForm.value.password!,
-      apartment_id: this.registerForm.value.apartment_id!
+      first_name: this.registerForm.value.first_name,
+      last_name: this.registerForm.value.last_name,
+      username: this.registerForm.value.username,
+      password: this.registerForm.value.password,
+      apartment_id: this.registerForm.value.apartment_id
     }
     this.allUsers$.pipe(map((users) => {
       if (users.find((user) => user.username === this.registerForm.value.username) === undefined) {
         this.userService.createUser(newUser).subscribe()
-        this.userStore.setLoggedInUser(newUser)
         this.register.emit()
       } else {
         this.userExistsError$.next(true)

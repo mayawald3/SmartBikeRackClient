@@ -17,6 +17,7 @@ img {
 
 .id {
   text-align: right;
+  text-transform: uppercase;
   padding-right: 20px;
 }
 

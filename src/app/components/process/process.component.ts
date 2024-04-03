@@ -1,13 +1,16 @@
 import {Component, OnInit} from '@angular/core'
 import {AsyncPipe, NgIf} from '@angular/common'
-import {BehaviorSubject, Observable} from 'rxjs'
 import {Router} from '@angular/router'
-import {LockStatusService} from '../../api/lock-status/lock-status.service'
-import {Lock} from '../../api/lock-status/lock-status.enum'
-import {UserService} from "../../api/user/user.service";
-import {FormsModule} from "@angular/forms";
-import {UserStore} from '../../api/user/user.store'
+import {FormsModule} from '@angular/forms'
 import {State} from '../../app.component'
+import {RegisterFormComponent} from '../register/register-form/register-form.component'
+import {ProcessFormComponent} from './process-form/process-form.component'
+import {ProcessQuery} from '../../api/process/process.store'
+import {ApartmentQuery} from '../../api/apartment/apartment.store'
+import {RackService} from '../../api/rack/rack.service'
+import {ProcessService} from '../../api/process/process.service'
+import {LoginUserQuery} from '../../api/login-user/login-user.store'
+import {combineLatest, map} from 'rxjs'
 
 @Component({
   selector: 'app-process',
@@ -15,46 +18,41 @@ import {State} from '../../app.component'
   imports: [
     AsyncPipe,
     NgIf,
-    FormsModule
+    FormsModule,
+    RegisterFormComponent,
+    ProcessFormComponent
   ],
   templateUrl: './process.component.html',
   styleUrl: './process.component.css'
 })
 export class ProcessComponent implements OnInit {
-  LOCKED = Lock.LOCKED
-  UNLOCKED = Lock.UNLOCKED
-  lockStatus$ = new BehaviorSubject(this.lockStatusService.getLockStatus())
-  loggedInUser = this.userStore.getLoggedInUser()
-  rackId$: Observable<number>
-  passwordIncorrect$ = new BehaviorSubject(false)
-  passwordInput: string
+  loggedInUser$ = this.loginUserQuery.selectFirst()
+  process$ = this.loginUserQuery.selectFirst().pipe(map((loggedInUser) => this.processQuery.getProcessForUser(loggedInUser.id)))
+  apartmentName$ = combineLatest([this.loggedInUser$, this.apartmentQuery.selectAll()])
+    .pipe(map(([loggedInUser, apartments]) => {
+      return apartments.find((apartment) =>
+        apartment.id === loggedInUser.apartment_id)?.apartmentName
+    }))
 
   constructor(
     private router: Router,
-    private lockStatusService: LockStatusService,
-    private userService: UserService,
-    private userStore: UserStore
+    private processQuery: ProcessQuery,
+    private apartmentQuery: ApartmentQuery,
+    private processService: ProcessService,
+    private rackService: RackService,
+    private loginUserQuery: LoginUserQuery
   ) {
   }
 
   ngOnInit() {
-    if (this.loggedInUser === null) {
+    this.processService.getAllProcesses().subscribe()
+    this.rackService.getAllRacks().subscribe()
+    if (!this.loggedInUser$) {
       this.switchRoute(State.WELCOME)
-    } else {
-      this.rackId$ = this.userService.getRackId(this.loggedInUser.username)
     }
   }
 
   switchRoute(screen: State) {
     this.router.navigate([screen.valueOf()]).then()
-  }
-
-  processInitiated() {
-    if (this.passwordInput === this.loggedInUser!.password) {
-      this.lockStatusService.updateLockStatus(this.lockStatus$.value === Lock.UNLOCKED ? Lock.LOCKED : Lock.UNLOCKED)
-      this.router.navigate(['home']).then()
-    } else {
-      this.passwordIncorrect$.next(true)
-    }
   }
 }

@@ -1,12 +1,14 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core'
-import {BehaviorSubject, Observable} from 'rxjs'
+import {combineLatest, map} from 'rxjs'
 import {AsyncPipe, NgIf, NgOptimizedImage} from '@angular/common'
 import {Router} from '@angular/router'
 import {State} from '../../app.component'
-import {LockStatusService} from '../../api/lock-status/lock-status.service'
-import {Lock} from '../../api/lock-status/lock-status.enum'
-import {UserService} from '../../api/user/user.service'
-import {UserStore} from '../../api/user/user.store'
+import {ProcessQuery} from '../../api/process/process.store'
+import {ApartmentQuery} from '../../api/apartment/apartment.store'
+import {ProcessService} from '../../api/process/process.service'
+import {RackService} from '../../api/rack/rack.service'
+import {RackQuery} from '../../api/rack/rack.store'
+import {LoginUserQuery} from '../../api/login-user/login-user.store'
 
 @Component({
   selector: 'app-home',
@@ -21,31 +23,38 @@ import {UserStore} from '../../api/user/user.store'
 })
 export class HomeComponent implements OnInit {
   @Output() lockChanged = new EventEmitter()
-  LOCKED = Lock.LOCKED
-  UNLOCKED = Lock.UNLOCKED
-  lockStatus$  = new BehaviorSubject(this.lockStatusService.getLockStatus())
-  loggedInUser = this.userStore.getLoggedInUser()
-  rackId$ : Observable<number>
+  loggedInUser$ = this.loginUserQuery.selectFirst()
+  process$ = this.loginUserQuery.selectFirst().pipe(map((loggedInUser) => this.processQuery.getProcessForUser(loggedInUser.id)))
+
+  apartmentName$ = combineLatest([this.loggedInUser$, this.apartmentQuery.selectAll()])
+    .pipe(map(([loggedInUser, apartments]) =>
+      apartments.find((apartment) =>
+        apartment.id === loggedInUser.apartment_id)?.apartmentName))
+
+  numberRacksOpen$ = combineLatest([this.loggedInUser$, this.rackQuery.selectAll()])
+    .pipe(map(([loggedInUser, racks]) =>
+      racks.filter((rack) => loggedInUser.apartment_id === rack.apartment_id && rack.is_open).length))
 
   constructor(
     private router: Router,
-    private lockStatusService: LockStatusService,
-    private userService: UserService,
-    private userStore: UserStore
-  ) {}
+    private processQuery: ProcessQuery,
+    private apartmentQuery: ApartmentQuery,
+    private processService: ProcessService,
+    private rackService: RackService,
+    private rackQuery: RackQuery,
+    private loginUserQuery: LoginUserQuery
+  ) {
+  }
 
   ngOnInit() {
-    if (this.loggedInUser === null) {
-      this.switchRoute(State.WELCOME)
-    } else {
-      this.rackId$ = this.userService.getRackId(this.loggedInUser.username)
-    }
-    this.lockStatus$.next(this.lockStatusService.getLockStatus())
+    this.processService.getAllProcesses().subscribe()
+    this.rackService.getAllRacks().subscribe()
   }
 
   switchRoute(screen: State) {
     this.router.navigate([screen.valueOf()]).then()
   }
+
   onLockClicked() {
     this.switchRoute(State.PROCESS)
   }
