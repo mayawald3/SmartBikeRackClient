@@ -3,7 +3,7 @@ import {HttpClient, HttpResponse} from '@angular/common/http'
 import {map, Observable, tap} from 'rxjs'
 import {User} from './user'
 import {UserStore} from './user.store'
-import {LoginUserStore} from '../login-user/login-user.store'
+import {LoginUserService} from '../login-user/login-user.service'
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class UserService {
 
   constructor(private http: HttpClient,
               private userStore: UserStore,
-              private loginUserStore: LoginUserStore) { }
+              private loginUserService: LoginUserService) { }
 
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.baseUrl}`,
@@ -36,7 +36,7 @@ export class UserService {
       map((response: HttpResponse<User>) => response.body),
       tap((user) => {
         this.userStore.upsert(user.id, user)
-        this.loginUserStore.set([user])
+        this.loginUserService.login(user)
       })
     )
   }

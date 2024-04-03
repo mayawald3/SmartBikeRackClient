@@ -3,8 +3,8 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 import {AsyncPipe, NgIf} from '@angular/common'
 import {User} from '../../../api/user/user'
 import {BehaviorSubject, map} from 'rxjs'
-import {UserQuery, UserStore} from '../../../api/user/user.store'
-import {LoginUserStore} from '../../../api/login-user/login-user.store'
+import {UserQuery} from '../../../api/user/user.store'
+import {LoginUserService} from '../../../api/login-user/login-user.service'
 
 @Component({
   selector: 'app-sign-in-form',
@@ -31,8 +31,7 @@ export class SignInFormComponent {
   usernameIncorrect$ = new BehaviorSubject(false)
 
   constructor(private userQuery: UserQuery,
-              private userStore: UserStore,
-              private loginUserStore: LoginUserStore) {
+              private loginUserService: LoginUserService) {
   }
 
   signInClicked() {
@@ -42,7 +41,7 @@ export class SignInFormComponent {
       let loginUser = users.filter((user) => user.username === this.signInForm.value.username)[0]
       if (loginUser) {
         if (loginUser.password === this.signInForm.value.password) {
-          this.loginUserStore.set([loginUser])
+          this.loginUserService.login(loginUser)
           this.signIn.emit(loginUser)
         } else {
           this.passwordIncorrect$.next(true)

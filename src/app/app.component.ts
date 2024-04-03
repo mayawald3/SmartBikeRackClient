@@ -6,6 +6,7 @@ import {Title} from '@angular/platform-browser'
 import {UserService} from './api/user/user.service'
 import {ApartmentService} from './api/apartment/apartment.service'
 import { LoginUserStore } from './api/login-user/login-user.store'
+import {LoginUserService} from './api/login-user/login-user.service'
 
 @Component({
   selector: 'app-root',
@@ -24,7 +25,7 @@ export class AppComponent {
     private router: Router,
     private titleService: Title,
     private userService: UserService,
-    private loginUserStore: LoginUserStore,
+    private loginUserService: LoginUserService,
     private apartmentService: ApartmentService) {
     this.handleRouteEvents()
     this.userService.getAllUsers().subscribe()
@@ -37,7 +38,7 @@ export class AppComponent {
   }
 
   onSignOut() {
-    this.loginUserStore.set(null)
+    this.loginUserService.logout()
     this.handleRouting(State.WELCOME)
   }
 
