@@ -9,8 +9,12 @@ div.sub-div.welcome-description2 {
   font-size: 12pt;
   font-weight: normal;
   line-height: 16pt;
-  background-color: white;
+  background-color: #8C52FF;
   text-transform: none;
+  border-radius: 20px;
+  color: white;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 div.sub-div.welcome-text {
@@ -19,6 +23,12 @@ div.sub-div.welcome-text {
   letter-spacing: 2px;
   font-weight: normal;
   color: #8C52FF;
+}
+
+.learn-more {
+  background-color: black;
+  margin-top: 30px;
+  margin-left: 20px;
 }
 
 @media (min-width: 600px) {

@@ -20,7 +20,8 @@
     </div>
   </div>
   <div class="main-div phone-only">
-    <div class="sub-div welcome-description2">{{descriptionText}}</div>
+    <button class="learn-more" (click)="learnMoreClicked()">LEARN MORE</button>
+    <div *ngIf="(learnMore$ | async)" class="sub-div welcome-description2">{{descriptionText}}</div>
   </div>
 </main>
 

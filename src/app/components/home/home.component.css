@@ -14,20 +14,28 @@ img {
   font-style: italic;
 }
 
+button:disabled {
+  background-color: gray;
+}
 
 .id {
+  display: flex;
   text-align: right;
   text-transform: uppercase;
   padding-right: 20px;
+  padding-left: 20px;
+  margin-bottom: 20px;
+  background-color: #8C52FF;
+  color: white;
+  justify-content: space-between;
 }
 
 .hello {
-  font-size: 20pt;
+  font-size: 30pt;
   text-transform: uppercase;
 }
 
 @media (min-width: 600px) {
   .id {
-    padding-right: 200px;
   }
 }

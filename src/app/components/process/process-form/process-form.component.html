@@ -2,7 +2,7 @@
   <div *ngIf="mostRecentProcess.is_completed">
     <label  for="rack_id_lock">Rack Number</label>
     <select id="rack_id_lock" formControlName="rack_id">
-      <option [value]="0" disabled selected>Select a rack</option>
+      <option [value]="null" disabled selected>Select a rack</option>
       <option *ngFor="let rack of (openRacks$ | async)" [value]="rack.id">
         {{ rack.id }}
       </option>
@@ -17,7 +17,6 @@
   </div>
   <div class="error-message" *ngIf="passwordIncorrect$ | async">Password is incorrect</div>
   <div>
-  <button [disabled]="!processForm.valid" type="submit"
-          (click)="processInitiated()">{{ mostRecentProcess.is_completed ? 'LOCK' : 'UNLOCK' }}</button>
+  <button [disabled]="!processForm.valid" type="submit">{{ mostRecentProcess.is_completed ? 'LOCK' : 'UNLOCK' }}</button>
   </div>
 </form>

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core'
+import {Component, Input, OnInit} from '@angular/core'
 import {BehaviorSubject, map} from 'rxjs'
 import {User} from '../../../api/user/user'
 import {Router} from '@angular/router'
@@ -22,7 +22,7 @@ import {RackQuery} from '../../../api/rack/rack.store'
   templateUrl: './process-form.component.html',
   styleUrl: './process-form.component.css'
 })
-export class ProcessFormComponent {
+export class ProcessFormComponent implements OnInit {
   @Input() loggedInUser: User
   @Input() mostRecentProcess: Process
   passwordIncorrect$ = new BehaviorSubject(false)
@@ -30,7 +30,7 @@ export class ProcessFormComponent {
     racks.filter((rack) => this.loggedInUser.apartment_id === rack.apartment_id && rack.is_open)))
 
   processForm = new FormGroup({
-    rack_id: new FormControl<number>(0),
+    rack_id: new FormControl<number>(null, Validators.required),
     password: new FormControl('', Validators.required),
   });
 
@@ -40,6 +40,14 @@ export class ProcessFormComponent {
       private rackService: RackService,
       private rackQuery: RackQuery
   ) {
+  }
+
+  ngOnInit(): void {
+    if (!this.mostRecentProcess.is_completed) {
+      this.processForm.get('rack_id').setValidators(null)
+    } else {
+      this.processForm.get('rack_id').setValidators(Validators.required)
+    }
   }
 
   processInitiated() {

@@ -6,6 +6,8 @@ import {User} from '../../../api/user/user'
 import {UserQuery, UserStore} from '../../../api/user/user.store'
 import {BehaviorSubject, map} from 'rxjs'
 import {ApartmentQuery} from '../../../api/apartment/apartment.store'
+import {ProcessService} from '../../../api/process/process.service'
+import {RackService} from '../../../api/rack/rack.service'
 
 @Component({
   selector: 'app-register-form',
@@ -51,7 +53,9 @@ export class RegisterFormComponent {
   constructor(
     private apartmentQuery: ApartmentQuery,
     private userService: UserService,
-    private userQuery: UserQuery
+    private userQuery: UserQuery,
+    private processService: ProcessService,
+    private rackService: RackService
   ) {
   }
 
@@ -67,6 +71,8 @@ export class RegisterFormComponent {
     }
     this.allUsers$.pipe(map((users) => {
       if (users.find((user) => user.username === this.registerForm.value.username) === undefined) {
+        this.processService.getAllProcesses().subscribe()
+        this.rackService.getAllRacks().subscribe()
         this.userService.createUser(newUser).subscribe()
         this.register.emit()
       } else {

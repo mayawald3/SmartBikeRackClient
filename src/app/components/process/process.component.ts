@@ -6,11 +6,8 @@ import {State} from '../../app.component'
 import {RegisterFormComponent} from '../register/register-form/register-form.component'
 import {ProcessFormComponent} from './process-form/process-form.component'
 import {ProcessQuery} from '../../api/process/process.store'
-import {ApartmentQuery} from '../../api/apartment/apartment.store'
-import {RackService} from '../../api/rack/rack.service'
-import {ProcessService} from '../../api/process/process.service'
 import {LoginUserQuery} from '../../api/login-user/login-user.store'
-import {combineLatest, map} from 'rxjs'
+import {map} from 'rxjs'
 
 @Component({
   selector: 'app-process',
@@ -27,26 +24,17 @@ import {combineLatest, map} from 'rxjs'
 })
 export class ProcessComponent implements OnInit {
   loggedInUser$ = this.loginUserQuery.selectFirst()
-  process$ = this.loginUserQuery.selectFirst().pipe(map((loggedInUser) => this.processQuery.getProcessForUser(loggedInUser.id)))
-  apartmentName$ = combineLatest([this.loggedInUser$, this.apartmentQuery.selectAll()])
-    .pipe(map(([loggedInUser, apartments]) => {
-      return apartments.find((apartment) =>
-        apartment.id === loggedInUser.apartment_id)?.apartmentName
-    }))
+  process$ = this.loginUserQuery.selectFirst()
+    .pipe(map((loggedInUser) => this.processQuery.getProcessForUser(loggedInUser?.id)))
 
   constructor(
     private router: Router,
     private processQuery: ProcessQuery,
-    private apartmentQuery: ApartmentQuery,
-    private processService: ProcessService,
-    private rackService: RackService,
     private loginUserQuery: LoginUserQuery
   ) {
   }
 
   ngOnInit() {
-    this.processService.getAllProcesses().subscribe()
-    this.rackService.getAllRacks().subscribe()
     if (!this.loggedInUser$) {
       this.switchRoute(State.WELCOME)
     }
