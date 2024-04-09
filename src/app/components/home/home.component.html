@@ -20,13 +20,13 @@
     <div  class="sub-div">
       <div *ngIf="((process$ | async) | async)?.is_completed">
         <button (click)="onLockClicked()" [disabled]="(numberRacksOpen$ | async) === 0">
-          <img ngSrc="./assets/images/unlock.png" alt="unlockImage" height="230.4" width="172.8" fetchpriority="high">
+          <img ngSrc="./assets/images/unlock.png" alt="unlockImage" height="230.4" width="172.8">
         </button>
         </div>
         <div *ngIf="!((process$ | async) | async)?.is_completed" class="sub-div">
           <div>
             <button (click)="onLockClicked()">
-              <img ngSrc="./assets/images/lock.png" alt="lockImage" height="230.4" width="172.8" fetchpriority="high">
+              <img ngSrc="./assets/images/lock.png" alt="lockImage" height="230.4" width="172.8">
             </button>
           </div>
       </div>
