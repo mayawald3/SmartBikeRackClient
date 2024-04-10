@@ -30,7 +30,7 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: '/'
           api_location: 'api'
-          output_location: 'dist'
+          output_location: 'dist/smart-bike-rack-client/browser'
           app_build_command: 'npm run build'
           ###### End of Repository/Build Configurations ######
 
