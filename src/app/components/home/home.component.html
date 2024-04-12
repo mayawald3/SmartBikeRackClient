@@ -9,21 +9,21 @@
       YOUR BIKE IS
     </div>
     <div class="sub-div ">
-      <span class="purple-text ">{{ ((process$ | async) | async)?.is_completed ? 'UNLOCKED' : 'LOCKED' }}
+      <span class="purple-text ">{{ (process$ | async)?.is_completed ? 'UNLOCKED' : 'LOCKED' }}
       </span>
     </div>
-    <div *ngIf="((process$ | async)| async)?.is_completed" class="sub-div ">
+    <div *ngIf="(process$ | async)?.is_completed" class="sub-div ">
       RACKS OPEN: {{ numberRacksOpen$ | async }}
     </div>
   </div>
   <div class="main-div">
     <div  class="sub-div">
-      <div *ngIf="((process$ | async) | async)?.is_completed">
+      <div *ngIf="(process$ | async)?.is_completed">
         <button (click)="onLockClicked()" [disabled]="(numberRacksOpen$ | async) === 0">
           <img ngSrc="./assets/images/unlock.png" alt="unlockImage" height="230.4" width="172.8">
         </button>
         </div>
-        <div *ngIf="!((process$ | async) | async)?.is_completed" class="sub-div">
+        <div *ngIf="!(process$ | async)?.is_completed" class="sub-div">
           <div>
             <button (click)="onLockClicked()">
               <img ngSrc="./assets/images/lock.png" alt="lockImage" height="230.4" width="172.8">

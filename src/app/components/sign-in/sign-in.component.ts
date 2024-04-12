@@ -4,6 +4,7 @@ import {SignInFormComponent} from './sign-in-form/sign-in-form.component'
 import {Router} from '@angular/router'
 import {State} from '../../app.component'
 import {User} from '../../api/user/user'
+import {ProcessService} from '../../api/process/process.service'
 
 @Component({
   selector: 'app-sign-in',
@@ -18,8 +19,11 @@ import {User} from '../../api/user/user'
 export class SignInComponent {
 
   constructor(
-    private router: Router
-  ) {}
+    private router: Router,
+    private processService: ProcessService
+  ) {
+    this.processService.getAllProcesses().subscribe()
+  }
 
   switchRoute(screen: State) {
     this.router.navigate([screen.valueOf()]).then()

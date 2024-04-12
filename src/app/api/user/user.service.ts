@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core'
+import {Injectable} from '@angular/core'
 import {HttpClient, HttpResponse} from '@angular/common/http'
 import {finalize, map, Observable, tap} from 'rxjs'
 import {User} from './user'
@@ -16,17 +16,21 @@ export class UserService {
   constructor(private http: HttpClient,
               private userStore: UserStore,
               private loginUserService: LoginUserService,
-              private loginUserStore: LoginUserStore) { }
+              private loginUserStore: LoginUserStore) {
+  }
 
   getAllUsers(): Observable<User[]> {
+    this.userStore.setLoading(true)
     return this.http.get<User[]>(`${this.baseUrl}`,
       {withCredentials: false, observe: 'response'})
       .pipe(
         map((response: HttpResponse<User[]>) => response.body),
         tap((users) => {
           this.userStore.set(users)
+        }), finalize(() => {
+          this.userStore.setLoading(false)
         })
-    )
+      )
   }
 
   createUser(newUser: User) {
@@ -37,14 +41,14 @@ export class UserService {
       newUser,
       {withCredentials: false, observe: 'response'})
       .pipe(
-      map((response: HttpResponse<User>) => response.body),
-      tap((user) => {
-        this.userStore.upsert(user.id, user)
-        this.loginUserService.login(user)
-      }), finalize(() => {
-        this.userStore.setLoading(false)
-        this.loginUserStore.setLoading(false)
-        } )
-    )
+        map((response: HttpResponse<User>) => response.body),
+        tap((user) => {
+          this.userStore.upsert(user.id, user)
+          this.loginUserService.login(user)
+        }), finalize(() => {
+          this.userStore.setLoading(false)
+          this.loginUserStore.setLoading(false)
+        })
+      )
   }
 }

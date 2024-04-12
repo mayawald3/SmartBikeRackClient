@@ -26,12 +26,30 @@ import {UserQuery} from '../../api/user/user.store'
 export class HomeComponent implements OnInit {
   @Output() lockChanged = new EventEmitter()
   isLoading$ = combineLatest(
-    [this.userQuery.selectLoading(), this.loginUserQuery.selectLoading()]).pipe(map((loaders) =>
+    [this.userQuery.selectLoading(), this.loginUserQuery.selectLoading(),
+    this.rackQuery.selectLoading(), this.apartmentQuery.selectLoading(),
+    this.processQuery.selectLoading()]).pipe(map((loaders) =>
       loaders.find((loader) => loader)
   ))
   loggedInUser$: Observable<User> = this.loginUserQuery.selectFirst()
-  process$ = this.loginUserQuery.selectFirst()
-    .pipe(map((loggedInUser) => this.processQuery.getProcessForUser(loggedInUser?.id)))
+  process$ = combineLatest([this.loggedInUser$, this.processQuery.selectAll()])
+    .pipe(map(([loggedInUser, processes]) => {
+      let mostRecentForUser = processes.filter((process) => process.user_id === loggedInUser?.id)
+        .sort((a, b) =>
+          new Date(b.time_start).getTime() - new Date(a.time_start).getTime())[0]
+      if (!mostRecentForUser) {
+        mostRecentForUser = {
+          id: 0,
+          user_id: loggedInUser?.id,
+          rack_id: 0,
+          is_completed: true,
+          time_start: 0,
+          time_end: 0
+        }
+      }
+      return mostRecentForUser
+      }
+    ))
 
   apartmentName$ = combineLatest([this.loggedInUser$, this.apartmentQuery.selectAll()])
     .pipe(map(([loggedInUser, apartments]) =>

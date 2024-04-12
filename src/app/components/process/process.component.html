@@ -1,18 +1,16 @@
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<main class="component">
+<main *ngIf="!(isLoading$ | async)" class="component">
   <div class="main-div">
-<!--    <div class="sub-div id">USER {{ (loggedInUser$ | async)?.id }}</div>-->
-<!--    <div class="sub-div id">{{apartmentName$ | async}}</div>-->
     <div class="sub-div">ENTER RACK NUMBER AND PASSWORD TO</div>
     <div class="sub-div">
-      <span class="purple-text">{{((process$ | async ) | async)?.is_completed ? 'LOCK' : 'UNLOCK'}}</span>
+      <span class="purple-text">{{(process$ | async )?.is_completed ? 'LOCK' : 'UNLOCK'}}</span>
     </div>
     <div class="sub-div">YOUR BIKE</div>
   </div>
   <div class="main-div" >
     <app-process-form
     [loggedInUser] = "loggedInUser$ | async"
-    [mostRecentProcess] = "(process$ | async) | async">
+    [mostRecentProcess] = "process$ | async">
     </app-process-form>
   </div>
 </main>

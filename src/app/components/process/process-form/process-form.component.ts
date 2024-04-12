@@ -24,7 +24,10 @@ import {RackQuery} from '../../../api/rack/rack.store'
 })
 export class ProcessFormComponent implements OnInit {
   @Input() loggedInUser: User
-  @Input() mostRecentProcess: Process
+  @Input() set mostRecentProcess(process: Process) {
+    this.mostRecentProcess$.next(process)
+  }
+  mostRecentProcess$ = new BehaviorSubject<Process>(null)
   passwordIncorrect$ = new BehaviorSubject(false)
   openRacks$ = this.rackQuery.selectAll().pipe(map((racks) =>
     racks.filter((rack) => this.loggedInUser.apartment_id === rack.apartment_id && rack.is_open)))
@@ -43,7 +46,7 @@ export class ProcessFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.mostRecentProcess.is_completed) {
+    if (!this.mostRecentProcess$.value.is_completed) {
       this.processForm.get('rack_id').setValidators(null)
     } else {
       this.processForm.get('rack_id').setValidators(Validators.required)
@@ -53,7 +56,7 @@ export class ProcessFormComponent implements OnInit {
   processInitiated() {
     this.passwordIncorrect$.next(false)
     if (this.processForm.value.password === this.loggedInUser.password) {
-      if (this.mostRecentProcess.is_completed) {
+      if (this.mostRecentProcess$.value.is_completed) {
         // LOCKING BIKE
         let newProcess = {
           id: 0,
@@ -68,15 +71,15 @@ export class ProcessFormComponent implements OnInit {
       } else {
         // UNLOCKING BIKE
         let updatedProcess = {
-          id: this.mostRecentProcess.id,
-          user_id: this.mostRecentProcess.user_id,
-          rack_id: this.mostRecentProcess.rack_id,
+          id: this.mostRecentProcess$.value.id,
+          user_id: this.mostRecentProcess$.value.user_id,
+          rack_id: this.mostRecentProcess$.value.rack_id,
           is_completed: true,
-          time_start: this.mostRecentProcess.time_start,
+          time_start: this.mostRecentProcess$.value.time_start,
           time_end: new Date().getTime()
         }
         this.processService.updateProcess(updatedProcess).subscribe()
-        this.rackService.updateRack(this.mostRecentProcess.rack_id, true).subscribe()
+        this.rackService.updateRack(this.mostRecentProcess$.value.rack_id, true).subscribe()
       }
       this.router.navigate(['home']).then()
     } else {
