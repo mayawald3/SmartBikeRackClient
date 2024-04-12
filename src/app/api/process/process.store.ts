@@ -20,23 +20,4 @@ export class ProcessQuery extends QueryEntity<ProcessState> {
   constructor(store: ProcessStore) {
     super(store)
   }
-
-  getProcessForUser(userId: number): Observable<Process> {
-    return this.selectAll().pipe(map((processes) => {
-      let mostRecentForUser = processes.filter((process) => process.user_id === userId)
-        .sort((a, b) =>
-          new Date(b.time_start).getTime() - new Date(a.time_start).getTime())[0]
-      if (!mostRecentForUser) {
-        mostRecentForUser = {
-          id: 0,
-          user_id: userId,
-          rack_id: 0,
-          is_completed: true,
-          time_start: 0,
-          time_end: 0
-        }
-      }
-      return mostRecentForUser
-    }))
-  }
 }
